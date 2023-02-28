@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class micrositeController extends Controller
 {
@@ -11,7 +14,12 @@ class micrositeController extends Controller
      */
     public function index()
     {
-        
+        $role = role::all();
+        $user = user::all();
+        return response()->json([
+            'message' => 'success',
+            'data' => $user,    
+        ], 200);
     }
 
     /**
