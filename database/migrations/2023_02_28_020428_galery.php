@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('galeri', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_kategori');
+            $table->bigInteger('kategori_id')->unsigned()->nullable();
             $table->string('judul_galeri');
             $table->string('deskripsi_galeri');
             $table->timestamps();
+            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

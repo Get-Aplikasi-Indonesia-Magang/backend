@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('microsite', function (Blueprint $table) {
+        Schema::create('content', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('title');
-            $table->string('deskripsi');
-            $table->string('image');
-            $table->string('status', ['acc', 'block']);
-            $table->string('link_id');
+            $table->bigInteger('kategory_id')->unsigned()->nullable();
+            $table->foreign('kategory_id')->references('id')->on('kategori')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('microsite');
+        Schema::dropIfExists('content');
     }
 };
