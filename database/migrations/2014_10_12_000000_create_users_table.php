@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('icon');
-            $table->bigInteger('id_role')->unsigned()->default(2);
+            $table->bigInteger('id_role')->unsigned()->nullable();
             $table->string('title');
             $table->string('bio');
             $table->string('instagram');

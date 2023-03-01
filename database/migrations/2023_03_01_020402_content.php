@@ -18,8 +18,8 @@ return new class extends Migration
             $table->String('link');
             $table->String('title');
             $table->String('description');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
