@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('content', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kategory_id')->unsigned()->nullable();
-            $table->foreign('kategory_id')->references('id')->on('kategori')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
+            $table->String('user_id');
+            $table->String('image');
+            $table->String('link');
+            $table->String('title');
+            $table->String('description');
+
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('content');
+        Schema::dropIfExists('role');
     }
 };

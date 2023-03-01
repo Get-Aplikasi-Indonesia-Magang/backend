@@ -14,10 +14,21 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('role_id')->unsigned()->nullable();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('icon');
+            $table->bigInteger('id_role')->unsigned()->default(2);
+            $table->string('title');
+            $table->string('bio');
+            $table->string('instagram');
+            $table->string('twitter');
+            $table->string('facebook');
+            $table->string('youtube');
+            $table->string('tiktok');
+            $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_role')->references('id')->on('role')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
