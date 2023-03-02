@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\micrositeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\usersControllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VideoController;
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('role', RoleController::class);
+Route::resource('users', usersControllers::class);
 Route::resource('microsite', micrositeController::class);
 Route::resource('content', ContentController::class);
 Route::resource('video', VideoController::class);

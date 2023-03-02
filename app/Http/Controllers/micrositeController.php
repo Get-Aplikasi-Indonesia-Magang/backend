@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\microsite;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class micrositeController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        $microsite = microsite::all();
         return response()->json([
             'message' => 'success',
-            'data' => $user,
+            'data' => $microsite,
         ], 200);
     }
 
@@ -24,24 +25,26 @@ class micrositeController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->icon = $request->icon;
-        $user->id_role = $request->id_role;
-        $user->title = $request->title;
-        $user->bio = $request->bio;
-        $user->instagram = $request->instagram;
-        $user->twitter = $request->twitter;
-        $user->facebook = $request->facebook;
-        $user->youtube = $request->youtube;
-        $user->tiktok = $request->tiktok;
+        $microsite = new microsite();
+        $microsite->id_user = $request->id_user;
+        $microsite->title = $request->title;
+        $microsite->bio = $request->bio;
+        $microsite->instagram = $request->instagram;
+        $microsite->twitter = $request->twitter;
+        $microsite->facebook = $request->facebook;
+        $microsite->youtube = $request->youtube;
+        $microsite->tiktok = $request->tiktok;
 
-        $user->save();
+        $file = $request->file('icon');
+        $microsite->icon = time() . '.' . $file->getClientOriginalExtension();
+        $filePath = $file->storeAs('uploads', $microsite->icon, 'public');
+
+        $file->move(public_path('uploads'), $microsite->icon);
+
+        $microsite->save();
         return response()->json([
             'message' => 'success',
-            'data' => $user,
+            'data' => $microsite,
         ], 200);
     }
 
@@ -50,30 +53,28 @@ class micrositeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::find($id);
-        if (!$user) {
+        $microsite = microsite::find($id);
+
+        if (!$microsite) {
             return response()->json([
                 'message' => 'not found',
             ], 404);
         }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->icon = $request->icon;
-        $user->id_role = $request->id_role;
-        $user->title = $request->title;
-        $user->bio = $request->bio;
-        $user->instagram = $request->instagram;
-        $user->twitter = $request->twitter;
-        $user->facebook = $request->facebook;
-        $user->youtube = $request->youtube;
-        $user->tiktok = $request->tiktok;
+        $microsite->id_user = $request->id_user;
+        $microsite->icon = $request->icon;
+        $microsite->title = $request->title;
+        $microsite->bio = $request->bio;
+        $microsite->instagram = $request->instagram;
+        $microsite->twitter = $request->twitter;
+        $microsite->facebook = $request->facebook;
+        $microsite->youtube = $request->youtube;
+        $microsite->tiktok = $request->tiktok;
 
-        $user->update();
+        $microsite->update();
         return response()->json([
             'message' => 'success',
-            'data' => $user,
+            'data' => $microsite,
         ], 200);
     }
 

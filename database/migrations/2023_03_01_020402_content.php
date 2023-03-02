@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('content', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('microsite_id')->unsigned()->nullable();
             $table->String('image');
             $table->String('link');
             $table->String('title');
             $table->String('description');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('microsite_id')->references('id')->on('microsites')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

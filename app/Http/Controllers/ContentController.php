@@ -16,18 +16,18 @@ class ContentController extends Controller
     {
         $content = content::all();
         return response()->json([
-            'message' => 'success',            
-            'content'=>$content,  
+            'message' => 'success',
+            'content' => $content,
         ], 200);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -35,30 +35,30 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         $content = new content();
-       
-        $content->user_id = $request->user_id;
+
+        $content->microsite_id = $request->microsite_id;
         $content->link = $request->link;
         $content->title = $request->title;
         $content->description = $request->description;
         $file = $request->file('image');
         $content->image = time() . '.' . $file->getClientOriginalExtension();
         $filePath = $file->storeAs('uploads', $content->image, 'public');
-        
+
         $file->move(public_path('uploads'), $content->image);
 
         $content->save();
-       
+
         return response()->json([
             'message' => 'success',
             'file_path' => Storage::url($filePath),
-            'data' => $content,     
+            'data' => $content,
         ], 200);
     }
 
     /**
      * Display the specified resource.
      */
-   
+
 
     /**
      * Update the specified resource in storage.
@@ -66,25 +66,25 @@ class ContentController extends Controller
     public function update(Request $request, string $id)
     {
         $content = content::find($id);
-        
-        if(!$content) {
+
+        if (!$content) {
             return response()->json([
                 'message' => 'not found',
             ], 404);
         }
 
-        $content->user_id = $request->user_id;
+        $content->microsite_id = $request->microsite_id;
         $content->image = $request->image;
         $content->link = $request->link;
         $content->title = $request->title;
         $content->description = $request->description;
- 
+
 
         $content->update();
-       
+
         return response()->json([
             'message' => 'success',
-            'data' => $content,    
+            'data' => $content,
         ], 200);
     }
 
@@ -94,7 +94,7 @@ class ContentController extends Controller
     public function destroy(string $id)
     {
         $content = content::find($id);
-        if(!$content){
+        if (!$content) {
             return response()->json([
                 'message' => 'Tidak Berhasil'
             ], 404);
@@ -105,5 +105,4 @@ class ContentController extends Controller
             'message' => 'Berhasil'
         ], 200);
     }
-    
 }
