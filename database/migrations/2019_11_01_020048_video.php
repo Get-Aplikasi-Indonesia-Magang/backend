@@ -12,11 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('video', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('user_id')->nullable()->unsigned();
+            $table->id();       
             $table->string('link');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

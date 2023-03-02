@@ -35,7 +35,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $video = new VideoModel();
-        $video->user_id = $request->user_id;
+       
         $video->link = $request->link;
         $video->save();
 
@@ -74,7 +74,7 @@ class VideoController extends Controller
             ], 404);
         }
 
-        $video->user_id = $request->user_id;
+       
         $video->link = $request->link;
         $video->update();
 
