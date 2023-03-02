@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ContentController extends Controller
 {
@@ -35,16 +37,20 @@ class ContentController extends Controller
         $content = new content();
        
         $content->user_id = $request->user_id;
-        $content->image = $request->image;
         $content->link = $request->link;
         $content->title = $request->title;
         $content->description = $request->description;
-       
+        $file = $request->file('image');
+        $content->image = time() . '.' . $file->getClientOriginalExtension();
+        $filePath = $file->storeAs('uploads', $content->image, 'public');
+        
+        $file->move(public_path('uploads'), $content->image);
 
         $content->save();
        
         return response()->json([
             'message' => 'success',
+            'file_path' => Storage::url($filePath),
             'data' => $content,     
         ], 200);
     }

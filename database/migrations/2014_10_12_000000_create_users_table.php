@@ -19,13 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('icon');
             $table->bigInteger('id_role')->unsigned()->nullable();
-            $table->string('title');
-            $table->string('bio');
-            $table->string('instagram');
-            $table->string('twitter');
-            $table->string('facebook');
-            $table->string('youtube');
-            $table->string('tiktok');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('id_role')->references('id')->on('role')->onUpdate('cascade')->onDelete('cascade');
